@@ -22,6 +22,8 @@ public abstract class Ship {
         this.startRow = startRow;
         this.startColumn = startColumn;
         this.isHorizontal = isHorizontal;
+        this.startPosition = new int[2]; // Initialize the startPosition array.
+
         this.sunk = false;
     }
      public boolean isHit(int row, int column) {
@@ -54,6 +56,11 @@ public abstract class Ship {
         return startColumn;
     }
     // Additional methods like hit and check placement will be added later
+public void setStartPosition(int row, int column, boolean isHorizontal) {
+        this.startRow = row;
+        this.startColumn = column;
+        this.isHorizontal = isHorizontal;
+    }
 }
 
 // Example of a specific ship class

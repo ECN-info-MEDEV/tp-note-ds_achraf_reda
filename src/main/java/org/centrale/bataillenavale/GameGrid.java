@@ -4,6 +4,7 @@
  */
 package org.centrale.bataillenavale;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,6 +19,8 @@ public class GameGrid {
     public GameGrid(int size) {
         this.size = size;
         this.grid = new char[size][size];
+        this.ships = new ArrayList<>(); // Initialize the ships list here
+
         initializeGrid();
     }
 
@@ -46,7 +49,16 @@ public class GameGrid {
     }
      public void placeShip(Ship ship) {
         if (canPlaceShip(ship)) {
-            ships.add(ship); // Add the ship to the list
+            ships.add(ship);
+             int rowStart = ship.getStartRow();
+        int colStart = ship.getStartColumn();
+        for (int i = 0; i < ship.getLength(); i++) {
+            if (ship.isHorizontal()) {
+                grid[rowStart][colStart + i] = 'S'; // Mark horizontal ship
+            } else {
+                grid[rowStart + i][colStart] = 'S'; // Mark vertical ship
+            }
+        }// Add the ship to the list
             // Rest of the code remains the same
         } else {
             throw new IllegalArgumentException("Cannot place ship at the specified location.");
@@ -66,6 +78,21 @@ public class GameGrid {
             }
         }
         return true;
+    }
+     public void displayGridWithShips() {
+        System.out.print("  "); // Top margin for column letters
+        for (int col = 0; col < size; col++) {
+            System.out.print((char) ('A' + col) + " "); // Column headers A, B, C, etc.
+        }
+        System.out.println(); // New line after column headers
+
+        for (int row = 0; row < size; row++) {
+            System.out.print((row + 1) + " "); // Row numbers 1, 2, 3, etc.
+            for (int col = 0; col < size; col++) {
+                System.out.print(grid[row][col] + " "); // Display the grid with ships
+            }
+            System.out.println(); // New line after each row
+        }
     }
 
 public char fireShot(int row, int column) {
@@ -117,4 +144,23 @@ public boolean isShipSunk(Ship ship) {
         return true; // All ships are sunk
     }
     // Additional methods like updating the grid will be added later
+public void displayHitsAndMisses() {
+        System.out.print("  ");
+        for (int col = 0; col < size; col++) {
+            System.out.print((char) ('A' + col) + " ");
+        }
+        System.out.println();
+
+        for (int row = 0; row < size; row++) {
+            System.out.print((row + 1) + " ");
+            for (int col = 0; col < size; col++) {
+                if (grid[row][col] == 'H' || grid[row][col] == 'M' || grid[row][col] == 'X') {
+                    System.out.print(grid[row][col] + " ");
+                } else {
+                    System.out.print("~ "); // Display water for untargeted locations
+                }
+            }
+            System.out.println();
+        }
+}
 }
