@@ -95,11 +95,22 @@ private static void placeShip(Scanner scanner, GameGrid grid, Ship ship) {
     }
     grid.displayGrid();
 }
-    private static int[] convertInputToCoordinates(String input) {
-        // Implement conversion logic here
-        // Placeholder return
-        return new int[]{0, 0};
+    static int[] convertInputToCoordinates(String input) {
+    input = input.toUpperCase(); // Convert to uppercase for consistency
+    char columnChar = input.charAt(0);
+    int column = columnChar - 'A'; // Convert 'A' to 0, 'B' to 1, etc.
+    
+    int row;
+    try {
+        row = Integer.parseInt(input.substring(1)) - 1; // Convert "5" to 4, "6" to 5, etc.
+    } catch (NumberFormatException e) {
+        // Handle the case where the substring is not a valid integer
+        row = -1; // Set to an invalid value
     }
+
+    return new int[]{row, column};
+}
+
 }
 
 

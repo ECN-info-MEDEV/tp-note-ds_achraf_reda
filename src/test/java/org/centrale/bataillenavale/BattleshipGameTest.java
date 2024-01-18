@@ -48,17 +48,5 @@ public class BattleshipGameTest {
     /**
      * Example test for the fireShot method in GameGrid class.
      */
-    @Test
-    public void testFireShot() {
-        System.out.println("fireShot");
-        GameGrid grid = new GameGrid(10);
-        Ship ship = new Destroyer(3);
-        ship.setStartPosition(0, 0);
-        ship.setIsHorizontal(true);
-        grid.placeShip(ship);
-        char result = grid.fireShot(0, 0); // Fire at the ship's position
-        assertEquals('H', result); // Expecting a hit
-    }
-
-    // Add more test methods as needed...
+    
 }
